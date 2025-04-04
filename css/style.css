@@ -762,3 +762,84 @@ tr:hover {
         grid-template-columns: 1fr 1fr 1fr;
     }
 }
+
+/* MAC Filter Styles */
+.mac-list {
+    margin-bottom: 15px;
+}
+
+.mac-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.mac-input {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.remove-mac {
+    color: var(--danger-color);
+}
+
+.remove-mac:hover {
+    color: #b91c1c;
+}
+
+.btn-sm {
+    padding: 5px 10px;
+    font-size: 0.85rem;
+}
+
+/* Password Strength */
+.password-strength {
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.strength-bar {
+    height: 5px;
+    width: 50px;
+    background-color: #ddd;
+    margin-right: 10px;
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+}
+
+.strength-bar::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0;
+    transition: width 0.3s ease;
+}
+
+.strength-bar.weak::after {
+    width: 25%;
+    background-color: var(--danger-color);
+}
+
+.strength-bar.medium::after {
+    width: 50%;
+    background-color: var(--warning-color);
+}
+
+.strength-bar.strong::after {
+    width: 75%;
+    background-color: #4d7c0f;
+}
+
+.strength-bar.very-strong::after {
+    width: 100%;
+    background-color: var(--success-color);
+}
+
+.strength-text {
+    font-size: 0.8rem;
+    color: var(--gray-color);
+}
