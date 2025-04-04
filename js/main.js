@@ -92,3 +92,56 @@ function simulateConnectedDevices() {
         });
     }, 5000);
 }
+
+// Función para simular el guardado de configuración
+function saveConfiguration(section, data) {
+    return new Promise((resolve) => {
+        console.log(`Guardando configuración para ${section}:`, data);
+        
+        // Simular retardo de red
+        setTimeout(() => {
+            resolve({ success: true, message: 'Configuración guardada correctamente' });
+        }, 1000);
+    });
+}
+
+// Función para simular reinicio del router
+function restartRouter() {
+    return new Promise((resolve) => {
+        console.log('Reiniciando router...');
+        
+        setTimeout(() => {
+            resolve({ success: true, message: 'Router reiniciado correctamente' });
+        }, 3000);
+    });
+}
+
+// Función para cargar configuración actual
+function loadCurrentConfig() {
+    return {
+        wifi: {
+            ssid24: 'Ruijie-Reyee-2.4G',
+            ssid5: 'Ruijie-Reyee-5G',
+            password24: 'admin123',
+            password5: 'admin123',
+            enabled24: true,
+            enabled5: true
+        },
+        network: {
+            lanIp: '192.168.1.1',
+            subnet: '255.255.255.0',
+            dhcp: true,
+            dhcpStart: '192.168.1.100',
+            dhcpEnd: '192.168.1.200',
+            wanType: 'dhcp'
+        },
+        security: {
+            firewall: true,
+            macFilter: false,
+            macFilterMode: 'whitelist'
+        }
+    };
+}
+
+// Exportar para uso en otras páginas
+export { saveConfiguration, restartRouter, loadCurrentConfig };
