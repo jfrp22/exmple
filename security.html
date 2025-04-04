@@ -1,80 +1,221 @@
-/* MAC Filter Styles */
-.mac-list {
-    margin-bottom: 15px;
-}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seguridad - Router Ruijie Reyee</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="router-container">
+        <!-- Barra lateral (igual que en index.html) -->
+        <aside class="sidebar">
+            <!-- ... mismo contenido que index.html ... -->
+        </aside>
 
-.mac-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
+        <!-- Contenido principal -->
+        <main class="main-content">
+            <header class="content-header">
+                <div class="header-left">
+                    <h1>Configuración de Seguridad</h1>
+                    <p>Protege tu red de accesos no autorizados</p>
+                </div>
+                <div class="header-right">
+                    <div class="user-profile">
+                        <img src="assets/images/user-avatar.png" alt="Usuario">
+                        <span>Administrador</span>
+                    </div>
+                </div>
+            </header>
 
-.mac-input {
-    flex: 1;
-    margin-right: 10px;
-}
+            <section class="config-section">
+                <div class="config-card">
+                    <h2><i class="fas fa-shield-alt"></i> Firewall</h2>
+                    <form id="firewall-form">
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="enable-firewall" checked>
+                            <label for="enable-firewall">Habilitar firewall</label>
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="block-ping" checked>
+                            <label for="block-ping">Bloquear ping desde Internet</label>
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="block-wan-access">
+                            <label for="block-wan-access">Bloquear acceso al router desde Internet</label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="security-level">Nivel de seguridad</label>
+                            <select id="security-level">
+                                <option value="low">Bajo (máxima compatibilidad)</option>
+                                <option value="medium" selected>Medio (recomendado)</option>
+                                <option value="high">Alto (protección máxima)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Aplicar Configuración</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="config-card">
+                    <h2><i class="fas fa-filter"></i> Filtrado MAC</h2>
+                    <form id="mac-filter-form">
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="enable-mac-filter">
+                            <label for="enable-mac-filter">Habilitar filtrado MAC</label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="mac-filter-mode">Modo de filtrado</label>
+                            <select id="mac-filter-mode" disabled>
+                                <option value="whitelist">Lista blanca (solo permitir)</option>
+                                <option value="blacklist">Lista negra (solo bloquear)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Direcciones MAC</label>
+                            <div class="mac-list">
+                                <div class="mac-item">
+                                    <input type="text" placeholder="00:1A:2B:3C:4D:5E" class="mac-input">
+                                    <button type="button" class="btn-icon remove-mac"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-secondary btn-sm" id="add-mac">
+                                <i class="fas fa-plus"></i> Agregar MAC
+                            </button>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="config-card advanced">
+                    <h2><i class="fas fa-lock"></i> Contraseña del Router</h2>
+                    <form id="password-form">
+                        <div class="form-group">
+                            <label for="current-password">Contraseña actual</label>
+                            <input type="password" id="current-password" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="new-password">Nueva contraseña</label>
+                            <input type="password" id="new-password" required>
+                            <div class="password-strength">
+                                <span class="strength-bar"></span>
+                                <span class="strength-text">Seguridad: baja</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="confirm-password">Confirmar nueva contraseña</label>
+                            <input type="password" id="confirm-password" required>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
 
-.remove-mac {
-    color: var(--danger-color);
-}
-
-.remove-mac:hover {
-    color: #b91c1c;
-}
-
-.btn-sm {
-    padding: 5px 10px;
-    font-size: 0.85rem;
-}
-
-/* Password Strength */
-.password-strength {
-    margin-top: 5px;
-    display: flex;
-    align-items: center;
-}
-
-.strength-bar {
-    height: 5px;
-    width: 50px;
-    background-color: #ddd;
-    margin-right: 10px;
-    border-radius: 3px;
-    overflow: hidden;
-    position: relative;
-}
-
-.strength-bar::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 0;
-    transition: width 0.3s ease;
-}
-
-.strength-bar.weak::after {
-    width: 25%;
-    background-color: var(--danger-color);
-}
-
-.strength-bar.medium::after {
-    width: 50%;
-    background-color: var(--warning-color);
-}
-
-.strength-bar.strong::after {
-    width: 75%;
-    background-color: #4d7c0f;
-}
-
-.strength-bar.very-strong::after {
-    width: 100%;
-    background-color: var(--success-color);
-}
-
-.strength-text {
-    font-size: 0.8rem;
-    color: var(--gray-color);
-}
+    <script src="js/config.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Habilitar/deshabilitar filtrado MAC
+            document.getElementById('enable-mac-filter').addEventListener('change', function() {
+                document.getElementById('mac-filter-mode').disabled = !this.checked;
+            });
+            
+            // Agregar campo MAC
+            document.getElementById('add-mac').addEventListener('click', function() {
+                const macItem = document.createElement('div');
+                macItem.className = 'mac-item';
+                macItem.innerHTML = `
+                    <input type="text" placeholder="00:1A:2B:3C:4D:5E" class="mac-input">
+                    <button type="button" class="btn-icon remove-mac"><i class="fas fa-times"></i></button>
+                `;
+                document.querySelector('.mac-list').appendChild(macItem);
+                
+                // Agregar evento al nuevo botón de eliminar
+                macItem.querySelector('.remove-mac').addEventListener('click', function() {
+                    macItem.remove();
+                });
+            });
+            
+            // Validar fuerza de contraseña
+            document.getElementById('new-password').addEventListener('input', function() {
+                const password = this.value;
+                const strengthBar = document.querySelector('.strength-bar');
+                const strengthText = document.querySelector('.strength-text');
+                
+                let strength = 0;
+                if(password.length >= 8) strength += 1;
+                if(password.match(/[a-z]/) && password.match(/[A-Z]/)) strength += 1;
+                if(password.match(/\d/)) strength += 1;
+                if(password.match(/[^a-zA-Z0-9]/)) strength += 1;
+                
+                let strengthClass = '';
+                let strengthMessage = '';
+                
+                switch(strength) {
+                    case 0:
+                    case 1:
+                        strengthClass = 'weak';
+                        strengthMessage = 'Débil';
+                        break;
+                    case 2:
+                        strengthClass = 'medium';
+                        strengthMessage = 'Moderada';
+                        break;
+                    case 3:
+                        strengthClass = 'strong';
+                        strengthMessage = 'Fuerte';
+                        break;
+                    case 4:
+                        strengthClass = 'very-strong';
+                        strengthMessage = 'Muy fuerte';
+                        break;
+                }
+                
+                strengthBar.className = 'strength-bar ' + strengthClass;
+                strengthText.textContent = 'Seguridad: ' + strengthMessage;
+            });
+            
+            // Manejar envío de formularios
+            document.getElementById('firewall-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Configuración de firewall actualizada');
+            });
+            
+            document.getElementById('mac-filter-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Configuración de filtrado MAC actualizada');
+            });
+            
+            document.getElementById('password-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const newPass = document.getElementById('new-password').value;
+                const confirmPass = document.getElementById('confirm-password').value;
+                
+                if(newPass !== confirmPass) {
+                    alert('Las contraseñas no coinciden');
+                    return;
+                }
+                
+                alert('Contraseña cambiada correctamente');
+            });
+        });
+    </script>
+</body>
+</html>
