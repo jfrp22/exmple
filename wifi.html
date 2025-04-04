@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración WiFi - Router Ruijie Reyee</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="router-container">
+        <!-- Barra lateral (igual que en index.html) -->
+        <aside class="sidebar">
+            <!-- ... mismo contenido que index.html ... -->
+        </aside>
+
+        <!-- Contenido principal -->
+        <main class="main-content">
+            <header class="content-header">
+                <div class="header-left">
+                    <h1>Configuración WiFi</h1>
+                    <p>Administra tus redes inalámbricas</p>
+                </div>
+                <div class="header-right">
+                    <div class="user-profile">
+                        <img src="assets/images/user-avatar.png" alt="Usuario">
+                        <span>Administrador</span>
+                    </div>
+                </div>
+            </header>
+
+            <section class="config-section">
+                <div class="config-card">
+                    <h2><i class="fas fa-wifi"></i> Red Principal 2.4GHz</h2>
+                    <form id="wifi24-form">
+                        <div class="form-group">
+                            <label for="ssid24">Nombre de red (SSID)</label>
+                            <input type="text" id="ssid24" value="Ruijie-Reyee-2.4G" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="password24">Contraseña</label>
+                            <input type="password" id="password24" value="admin123" required>
+                            <button type="button" class="show-password" data-target="password24">
+                                <i class="far fa-eye"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="bandwidth24">Ancho de banda</label>
+                            <select id="bandwidth24">
+                                <option value="20MHz">20MHz</option>
+                                <option value="40MHz" selected>40MHz</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="enable24" checked>
+                            <label for="enable24">Habilitar red 2.4GHz</label>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                            <button type="button" class="btn btn-secondary" id="reset24">Restablecer</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="config-card">
+                    <h2><i class="fas fa-wifi"></i> Red 5GHz</h2>
+                    <form id="wifi5-form">
+                        <div class="form-group">
+                            <label for="ssid5">Nombre de red (SSID)</label>
+                            <input type="text" id="ssid5" value="Ruijie-Reyee-5G" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="password5">Contraseña</label>
+                            <input type="password" id="password5" value="admin123" required>
+                            <button type="button" class="show-password" data-target="password5">
+                                <i class="far fa-eye"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="channel5">Canal</label>
+                            <select id="channel5">
+                                <option value="auto" selected>Auto</option>
+                                <option value="36">36 (5180 MHz)</option>
+                                <option value="40">40 (5200 MHz)</option>
+                                <option value="44">44 (5220 MHz)</option>
+                                <option value="48">48 (5240 MHz)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="enable5" checked>
+                            <label for="enable5">Habilitar red 5GHz</label>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                            <button type="button" class="btn btn-secondary" id="reset5">Restablecer</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="config-card advanced">
+                    <h2><i class="fas fa-sliders-h"></i> Configuración Avanzada WiFi</h2>
+                    <form id="wifi-advanced-form">
+                        <div class="form-group">
+                            <label for="broadcast">Ocultar SSID</label>
+                            <select id="broadcast">
+                                <option value="visible" selected>Mostrar nombre de red</option>
+                                <option value="hidden">Ocultar nombre de red</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="encryption">Encriptación</label>
+                            <select id="encryption">
+                                <option value="wpa2" selected>WPA2-PSK (recomendado)</option>
+                                <option value="wpa3">WPA3-PSK</option>
+                                <option value="wpa2-wpa3">WPA2/WPA3-PSK</option>
+                                <option value="wep">WEP (no seguro)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="txpower">Potencia de transmisión</label>
+                            <select id="txpower">
+                                <option value="100">100% (máxima)</option>
+                                <option value="75" selected>75%</option>
+                                <option value="50">50%</option>
+                                <option value="25">25% (mínima)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Aplicar Configuración</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mostrar/ocultar contraseña
+            document.querySelectorAll('.show-password').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const input = document.getElementById(targetId);
+                    const icon = this.querySelector('i');
+                    
+                    if(input.type === 'password') {
+                        input.type = 'text';
+                        icon.classList.remove('fa-eye');
+                        icon.classList.add('fa-eye-slash');
+                    } else {
+                        input.type = 'password';
+                        icon.classList.remove('fa-eye-slash');
+                        icon.classList.add('fa-eye');
+                    }
+                });
+            });
+            
+            // Manejar envío de formularios
+            document.getElementById('wifi24-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                routerConfig.updateSetting('wifi', 'ssid24', document.getElementById('ssid24').value);
+                routerConfig.updateSetting('wifi', 'password24', document.getElementById('password24').value);
+                routerConfig.updateSetting('wifi', 'enable24', document.getElementById('enable24').checked);
+                
+                showAlert('Configuración WiFi 2.4GHz guardada correctamente', 'success');
+            });
+            
+            document.getElementById('wifi5-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                routerConfig.updateSetting('wifi', 'ssid5', document.getElementById('ssid5').value);
+                routerConfig.updateSetting('wifi', 'password5', document.getElementById('password5').value);
+                routerConfig.updateSetting('wifi', 'enable5', document.getElementById('enable5').checked);
+                
+                showAlert('Configuración WiFi 5GHz guardada correctamente', 'success');
+            });
+            
+            document.getElementById('wifi-advanced-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                showAlert('Configuración avanzada aplicada', 'info');
+            });
+            
+            // Botones de reset
+            document.getElementById('reset24').addEventListener('click', function() {
+                if(confirm('¿Restablecer configuración WiFi 2.4GHz a valores por defecto?')) {
+                    document.getElementById('ssid24').value = 'Ruijie-Reyee-2.4G';
+                    document.getElementById('password24').value = 'admin123';
+                    document.getElementById('bandwidth24').value = '40MHz';
+                    document.getElementById('enable24').checked = true;
+                    showAlert('Configuración WiFi 2.4GHz restablecida', 'info');
+                }
+            });
+            
+            document.getElementById('reset5').addEventListener('click', function() {
+                if(confirm('¿Restablecer configuración WiFi 5GHz a valores por defecto?')) {
+                    document.getElementById('ssid5').value = 'Ruijie-Reyee-5G';
+                    document.getElementById('password5').value = 'admin123';
+                    document.getElementById('channel5').value = 'auto';
+                    document.getElementById('enable5').checked = true;
+                    showAlert('Configuración WiFi 5GHz restablecida', 'info');
+                }
+            });
+            
+            function showAlert(message, type) {
+                const alert = document.createElement('div');
+                alert.className = `alert alert-${type}`;
+                alert.textContent = message;
+                document.querySelector('.config-section').prepend(alert);
+                
+                setTimeout(() => {
+                    alert.remove();
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>
