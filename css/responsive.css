@@ -1,0 +1,93 @@
+/* Dispositivos pequeños (teléfonos, 576px y menos) */
+@media (max-width: 576px) {
+    .router-container {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        position: static;
+        height: auto;
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+    
+    .content-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .header-right {
+        margin-top: 15px;
+    }
+    
+    .status-widgets {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .form-actions .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+/* Dispositivos medianos (tablets, 768px y menos) */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 70px;
+        padding: 15px 0;
+    }
+    
+    .logo-container {
+        padding: 0 10px 20px;
+    }
+    
+    .logo {
+        height: 40px;
+    }
+    
+    .logo-container h2 {
+        display: none;
+    }
+    
+    .menu-nav li a span {
+        display: none;
+    }
+    
+    .menu-nav li a i {
+        margin-right: 0;
+        font-size: 1.2rem;
+    }
+    
+    .logout-btn a span {
+        display: none;
+    }
+    
+    .main-content {
+        margin-left: 70px;
+    }
+}
+
+/* Dispositivos grandes (desktops, 992px y menos) */
+@media (max-width: 992px) {
+    .charts-section {
+        grid-template-columns: 1fr;
+    }
+    
+    .devices-list {
+        margin-top: 30px;
+    }
+}
+
+/* Dispositivos extra grandes (large desktops, 1200px y más) */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1400px;
+    }
+}
