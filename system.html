@@ -48,3 +48,227 @@
                         <div class="info-item">
                             <span class="info-label">Uso de CPU:</span>
                             <span class="info-value">24%
+                        <div class="info-item">
+                            <span class="info-label">Uso de Memoria:</span>
+                            <span class="info-value">128MB / 256MB (50%)</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Temperatura:</span>
+                            <span class="info-value">48°C</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" id="refresh-info">
+                            <i class="fas fa-sync-alt"></i> Actualizar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="config-card">
+                    <h2><i class="fas fa-cloud-download-alt"></i> Actualización de Firmware</h2>
+                    <form id="firmware-form">
+                        <div class="form-group">
+                            <label>Versión actual: <strong>ReyeeOS 3.2.1</strong></label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="firmware-file">Seleccionar archivo de firmware</label>
+                            <input type="file" id="firmware-file" accept=".bin,.img">
+                            <p class="help-text">Selecciona el archivo .bin o .img descargado del sitio oficial</p>
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="backup-config">
+                            <label for="backup-config">Hacer copia de seguridad de la configuración antes de actualizar</label>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Actualizar Firmware</button>
+                        </div>
+                    </form>
+                    
+                    <div class="check-update">
+                        <button type="button" class="btn btn-secondary" id="check-update">
+                            <i class="fas fa-search"></i> Buscar actualizaciones
+                        </button>
+                        <div id="update-result"></div>
+                    </div>
+                </div>
+                
+                <div class="config-card advanced">
+                    <h2><i class="fas fa-undo"></i> Restablecimiento</h2>
+                    <div class="reset-options">
+                        <div class="reset-option">
+                            <h3>Reiniciar Router</h3>
+                            <p>Reinicia el router sin cambiar la configuración</p>
+                            <button type="button" class="btn btn-warning" id="restart-router">
+                                <i class="fas fa-power-off"></i> Reiniciar
+                            </button>
+                        </div>
+                        
+                        <div class="reset-option">
+                            <h3>Restablecer Configuración</h3>
+                            <p>Vuelve a la configuración de fábrica manteniendo el firmware actual</p>
+                            <button type="button" class="btn btn-danger" id="reset-config">
+                                <i class="fas fa-eraser"></i> Restablecer
+                            </button>
+                        </div>
+                        
+                        <div class="reset-option">
+                            <h3>Restablecimiento Completo</h3>
+                            <p>Restaura el firmware y configuración a valores de fábrica</p>
+                            <button type="button" class="btn btn-danger" id="full-reset">
+                                <i class="fas fa-bomb"></i> Restablecimiento Total
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal de confirmación -->
+    <div class="modal" id="confirm-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Confirmar acción</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="modal-message">¿Estás seguro que deseas realizar esta acción?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="modal-cancel">Cancelar</button>
+                <button class="btn btn-primary" id="modal-confirm">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Actualizar información del sistema
+            document.getElementById('refresh-info').addEventListener('click', function() {
+                const uptime = document.querySelector('.info-item:nth-child(3) .info-value');
+                const cpu = document.querySelector('.info-item:nth-child(4) .info-value');
+                const mem = document.querySelector('.info-item:nth-child(5) .info-value');
+                const temp = document.querySelector('.info-item:nth-child(6) .info-value');
+                
+                // Simular actualización
+                uptime.textContent = '5 días 12:35:47';
+                cpu.textContent = '22%';
+                mem.textContent = '126MB / 256MB (49%)';
+                temp.textContent = '47°C';
+                
+                showAlert('Información actualizada', 'success');
+            });
+            
+            // Buscar actualizaciones
+            document.getElementById('check-update').addEventListener('click', function() {
+                const resultDiv = document.getElementById('update-result');
+                resultDiv.innerHTML = '<p><i class="fas fa-circle-notch fa-spin"></i> Buscando actualizaciones...</p>';
+                
+                // Simular búsqueda
+                setTimeout(() => {
+                    resultDiv.innerHTML = `
+                        <div class="update-available">
+                            <p><i class="fas fa-check-circle"></i> Nueva versión disponible: <strong>ReyeeOS 3.2.2</strong></p>
+                            <ul>
+                                <li>Mejoras en la estabilidad del WiFi</li>
+                                <li>Corrección de vulnerabilidades de seguridad</li>
+                                <li>Nuevas funciones de administración</li>
+                            </ul>
+                            <a href="#" class="btn btn-sm btn-primary">Descargar</a>
+                        </div>
+                    `;
+                }, 2000);
+            });
+            
+            // Manejar botones de reinicio/reset
+            const resetButtons = ['restart-router', 'reset-config', 'full-reset'];
+            resetButtons.forEach(btnId => {
+                document.getElementById(btnId).addEventListener('click', function() {
+                    const action = this.id;
+                    let title, message;
+                    
+                    switch(action) {
+                        case 'restart-router':
+                            title = 'Reiniciar Router';
+                            message = '¿Estás seguro que deseas reiniciar el router? La conexión se interrumpirá durante aproximadamente 1 minuto.';
+                            break;
+                        case 'reset-config':
+                            title = 'Restablecer Configuración';
+                            message = '¿Estás seguro que deseas restablecer la configuración a valores de fábrica? Todos los ajustes personalizados se perderán.';
+                            break;
+                        case 'full-reset':
+                            title = 'Restablecimiento Total';
+                            message = '¿Estás seguro que deseas realizar un restablecimiento total? El firmware y la configuración volverán a los valores de fábrica.';
+                            break;
+                    }
+                    
+                    showModal(title, message, action);
+                });
+            });
+            
+            // Manejar modal
+            let currentAction = '';
+            
+            function showModal(title, message, action) {
+                currentAction = action;
+                document.getElementById('modal-title').textContent = title;
+                document.getElementById('modal-message').textContent = message;
+                document.getElementById('confirm-modal').style.display = 'flex';
+            }
+            
+            document.querySelector('.modal-close').addEventListener('click', closeModal);
+            document.getElementById('modal-cancel').addEventListener('click', closeModal);
+            
+            document.getElementById('modal-confirm').addEventListener('click', function() {
+                let message = '';
+                
+                switch(currentAction) {
+                    case 'restart-router':
+                        message = 'Router reiniciándose... La página se recargará automáticamente.';
+                        setTimeout(() => {
+                            location.reload();
+                        }, 3000);
+                        break;
+                    case 'reset-config':
+                        message = 'Configuración restablecida. El router se reiniciará.';
+                        break;
+                    case 'full-reset':
+                        message = 'Restablecimiento total iniciado. Esto puede tomar varios minutos.';
+                        break;
+                }
+                
+                showAlert(message, 'info');
+                closeModal();
+            });
+            
+            function closeModal() {
+                document.getElementById('confirm-modal').style.display = 'none';
+            }
+            
+            // Cerrar modal al hacer clic fuera
+            window.addEventListener('click', function(event) {
+                if(event.target === document.getElementById('confirm-modal')) {
+                    closeModal();
+                }
+            });
+            
+            // Mostrar alertas
+            function showAlert(message, type) {
+                const alert = document.createElement('div');
+                alert.className = `alert alert-${type}`;
+                alert.innerHTML = `<p>${message}</p>`;
+                document.querySelector('.config-section').prepend(alert);
+                
+                setTimeout(() => {
+                    alert.remove();
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>
